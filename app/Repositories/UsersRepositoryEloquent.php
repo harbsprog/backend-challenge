@@ -19,8 +19,7 @@ class UsersRepositoryEloquent implements UsersRepositoryInterface{
         ->select(
             'id',
             'email',
-            'password',
-            'level'
+            'password'
         )->get();
     }
 
@@ -29,8 +28,7 @@ class UsersRepositoryEloquent implements UsersRepositoryInterface{
         ->select(
             'id',
             'email',
-            'password',
-            'level'
+            'password'
         )
         ->where('id',$id)
         ->get();

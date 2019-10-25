@@ -12,13 +12,7 @@ class CreateUsersTable extends Migration{
             $table->integer('id')->autoIncrement();
             $table->string('email', 100)->unique()->notNullable();
             $table->string('password')->notNullable();
-            $table->integer('level')->notNullable();
             $table->timestamps();
-        });
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreign('level')
-                ->references('id')->on('levels');
         });
     }
 

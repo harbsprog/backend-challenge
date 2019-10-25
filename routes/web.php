@@ -1,6 +1,18 @@
 <?php
 
-$router->group(['prefix' => '/api'], function() use ($router){
+/* Auth Route */
+$router->post(
+    '/api/auth/login',
+    [
+       'uses' => 'AuthController@authenticate'
+    ]
+);
+
+$router->group([
+    'prefix' => '/api',
+    'middleware' => 'jwt.auth'
+], function() use ($router){
+
 
     /* Colors Routes */
     $router->get("/colors", "ColorsController@getAll");
