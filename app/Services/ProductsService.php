@@ -30,20 +30,19 @@ class ProductsService{
 
                 foreach($products as $product){
 
-                    $colorVariant = explode('[', $product['color_variant']);
+                    $colorVariant = explode('[', $product->color_variant);
                     $colorVariant = explode(']', $colorVariant[1]);
                     $colorVariant = explode(',', $colorVariant[0]);
 
                     foreach($colorVariant as $key => $color){
-                        $colorFinally = $this->productsRepository->getAllColorVariant();
+                        $colorFinally = $this->productsRepository->getColorVariant($color);
 
-                        $colorArray[$color]['color'] = $colorFinally[0]['color'];
-                        $colorArray[$color]['code'] = $colorFinally[0]['code'];
+                        $colorArray[$key] = $colorFinally;
                     }
 
-                    $products[0]['color_variant'] = array_filter($colorArray);
+                    $product->color_variant = array_filter($colorArray);
+                    $colorArray = array();
                 }
-
 
                 return response()->json($products, Response::HTTP_OK);
             } else {
@@ -57,7 +56,7 @@ class ProductsService{
     public function get(int $id){
         try{
             $product = $this->productsRepository->get($id);
-            $product[0]['color_variant'] = json_encode($product[0]['color_variant']);
+            $product[0]['color_variant'] = ($product[0]['color_variant']);
             $countItems = (count($product) > 0) ? true : false;
 
             if($countItems){
@@ -73,8 +72,7 @@ class ProductsService{
                 foreach($colorVariant as $key => $color){
                     $colorFinally = $this->productsRepository->getColorVariant($color);
 
-                    $colorArray[$color]['color'] = $colorFinally[0]['color'];
-                    $colorArray[$color]['code'] = $colorFinally[0]['code'];
+                    $colorArray[$key] = $colorFinally;
                 }
 
                 $product[0]['color_variant'] = array_filter($colorArray);
@@ -106,24 +104,34 @@ class ProductsService{
                 $product = $this->productsRepository->store($request);
                 return response()->json($product, Response::HTTP_CREATED);
             } catch(QueryException $e){
-                return response()->json(['erro' => $e], Response::HTTP_INTERNAL_SERVER_ERROR);
+                return response()->json(['erro' => 'Erro de conexão com o banco'], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
         }
 
 	}
 
     public function update(int $id, Request $request){
-        try{
-            $request->merge([
-                'color_variant' => json_encode($request->color_variant)
-            ]);
+        $validator = Validator::make(
+                $request->all(),
+                ProductsValidator::NEW_PACKAGE_RULE,
+                ProductsValidator::ERROR_MESSAGES
+        );
 
-            $product = $this->productsRepository->update($id, $request);
-            return response()->json($product, Response::HTTP_OK);
-        } catch(QueryException $e){
-            return response()->json(['erro' => 'Erro de conexão com o banco'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        if($validator->fails()){
+            return response()->json($validator->errors(), Response::HTTP_BAD_REQUEST);
+        } else{
+            try{
+                $request->merge([
+                    'color_variant' => json_encode($request->color_variant)
+                ]);
+
+                $product = $this->productsRepository->update($id, $request);
+                return response()->json($product, Response::HTTP_OK);
+            } catch(QueryException $e){
+                return response()->json(['erro' => 'Erro de conexão com o banco'], Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
         }
-	}
+    }
 
     public function destroy(int $id){
         try{

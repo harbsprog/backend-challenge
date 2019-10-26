@@ -6,6 +6,6 @@ class UsersSeeder extends Seeder{
 
     public function run(){
 
-        factory(App\User::class, 1)->create();
+        factory(App\Models\Users::class, 5)->create();
     }
 }
