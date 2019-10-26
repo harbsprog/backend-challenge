@@ -10,8 +10,9 @@
 
 # Run
 
--   Partindo do preceito de que já tenha instalado Git, PHP, Composer e tenha seu banco de dados MySQL rodando, pode realizar os passos abaixo para subir a API:
+Partindo do preceito de que já tenha instalado Git, PHP, Composer e tenha seu banco de dados MySQL rodando, pode realizar os passos abaixo para subir a API:
 
+-   `habilitar a extensão pdo_mysql no seu arquivo php.ini caso esteja desabilitada, descomentando a linha ;extension=pdo_mysql`
 -   `git clone https://github.com/harbsprog/backend-challenge.git backend-challenge`
 
 -   `cd backend-challenge`
