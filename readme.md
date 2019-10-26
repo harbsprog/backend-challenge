@@ -7,6 +7,8 @@
 -   GIT 2.23.0
 -   Ambiente de desenvolvimento linux.
 -   Cores são enviadas a API como números pois são FK, mas sua visualização se dá o nome da cor.
+-   Banco sendo gerado com migrations, as seeds geram 5 usuários com a senha 123456 na tabela users, 5 cores na tabela colors e 5 produtos na tabela products.
+-   Caso não deseje enviar nenhuma variação de cor no produto utilize [0] no campo color_variant na requisição;
 
 # Run
 
