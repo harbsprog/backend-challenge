@@ -5,6 +5,7 @@
 -   Lumen (6.2.0) (Laravel Components ^6.0)
 -   Composer 1.9.0
 -   GIT 2.23.0
+-   MySQL 5.7.27
 -   Ambiente de desenvolvimento linux.
 -   Cores são enviadas a API como números pois são FK, mas sua visualização se dá o nome da cor.
 -   Banco sendo gerado com migrations, as seeds geram 5 usuários com a senha 123456 na tabela users, 5 cores na tabela colors e 5 produtos na tabela products.
