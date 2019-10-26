@@ -1,5 +1,9 @@
 <?php
 
+$router->get("/" , function(){
+     return "Backend-Challenge Venda.la";
+});
+
 /* Auth Route */
 $router->post(
     '/api/auth/login',

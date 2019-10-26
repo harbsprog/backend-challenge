@@ -1,9 +1,16 @@
 # Observation
 
+-   Todas as rotas(menos a de autenticação) necessitam do campo token no cabeçalho(header) com o valor gerado pela rota /api/auth/login.
+-   PHP 7.3.10
+-   Lumen (6.2.0) (Laravel Components ^6.0)
+-   Composer 1.9.0
+-   GIT 2.23.0
 -   Ambiente de desenvolvimento linux.
 -   Cores são enviadas a API como números pois são FK, mas sua visualização se dá o nome da cor.
 
 # Run
+
+-   Partindo do preceito de que já tenha instalado Git, PHP, Composer e tenha seu banco de dados MySQL rodando, pode realizar os passos abaixo para subir a API:
 
 -   `git clone https://github.com/harbsprog/backend-challenge.git backend-challenge`
 
@@ -14,8 +21,6 @@
 -   `substituir os dados do banco pelos seus`
 
 -   `composer install`
-
--   `php artisan jwt:secret`
 
 -   `php artisan migrate`
 
